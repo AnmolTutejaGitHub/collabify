@@ -1,2 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap');
 @import "tailwindcss";
 @plugin "daisyui";
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+* {
+    font-family: 'Manrope', sans-serif;
+}
+
+::selection {
+    background-color: rgba(173, 216, 230, 0.5);
+    color: #000;
+}

@@ -2,12 +2,13 @@ import NavBar from "../NavBar/NavBar";
 import { FaGithub } from "react-icons/fa";
 import { CiPlay1 } from "react-icons/ci";
 
-function Home(){
+function Home({toggleMode,userPreference}){
+    
     return (
-       <section className="bg-[#000A08] h-[100vh] w-[100vw]  bg-cover bg-top"
+       <section className={`${userPreference.lightmode ? 'bg-white text-black' : 'bg-[#000A08]'} h-[100vh] w-[100vw] bg-cover bg-top`}
        style={{ backgroundImage: "url('circle.png')" }}
        >
-            <NavBar/>
+            <NavBar toggleMode={toggleMode}/>
 
             <div className="flex mt-10 w-full">
                 <div className="w-1/2 ml-20">

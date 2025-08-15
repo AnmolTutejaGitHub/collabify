@@ -1,8 +1,10 @@
 import { MdOutlineLightMode } from "react-icons/md";
 import { FaGithub } from "react-icons/fa";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import { useNavigate,Link } from "react-router";
 
-function NavBar(){
+function NavBar({toggleMode}){
+    const navigate = useNavigate();
     return (<div className="p-6 bg-transparent flex justify-between items-center">
         <div className="flex gap-4 items-center text-xl">
             <FaGithub />
@@ -18,8 +20,8 @@ function NavBar(){
             </div>
         </div>
         <div className="flex gap-4 items-center text-xl">
-            <div><MdOutlineLightMode /></div>
-            <div>Log in</div>
+            <div onClick={()=>toggleMode()}><MdOutlineLightMode /></div>
+            <Link to="/login">Log in</Link>
             <div>Get Started</div>
         </div>
     </div>)
