@@ -1,7 +1,42 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import NavBarSecondary from "../NavBar/NavBarSecondary";
+import axios from "axios";
+import { useState } from "react";
+import toast from 'react-hot-toast';
 
 function Signup({toggleMode,userPreference}) {
+
+   const [username,setUsername] = useState("");
+   const [email,setEmail] = useState("");
+   const [password,setPassword] = useState("");
+   const [confirm_password,setConfirmPassword] = useState("");
+
+   const navigate = useNavigate();
+
+   async function signup(){
+    const id = toast.loading("Creating your account...");
+    try{
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/user/signup`,{
+            email : email,
+            password : password,
+            confirm_password : confirm_password,
+            name : username
+        })
+
+        const data = response.data;
+        console.log(data);
+        localStorage.setItem('token',data.token);
+        toast.success("Signup successful!");
+        navigate("/verify");
+
+    }catch(err){
+        console.log(err);
+        toast.error(err.response?.data?.message || err.response.data.error || "some error occurred");
+    }finally{
+        toast.dismiss(id);
+    }
+   }
+
   return (
     <div className="flex h-screen">
         <div className="absolute top-0 right-0 w-1/2">
@@ -16,6 +51,7 @@ function Signup({toggleMode,userPreference}) {
             type="text" 
             className="input input-bordered w-full mt-1 rounded-lg bg-gray-100 text-black" 
             placeholder="Enter your name" 
+            onChange={(e)=>setUsername(e.target.value)}
           />
 
           <label className="block text-sm font-medium text-gray-600 mt-4">Email</label>
@@ -23,6 +59,7 @@ function Signup({toggleMode,userPreference}) {
             type="email" 
             className="input input-bordered w-full mt-1 rounded-lg bg-gray-100 text-black" 
             placeholder="Enter your email" 
+            onChange={(e)=>setEmail(e.target.value)}
           />
 
           <label className="block text-sm font-medium text-gray-600 mt-4">Password</label>
@@ -30,6 +67,7 @@ function Signup({toggleMode,userPreference}) {
             type="password" 
             className="input input-bordered w-full mt-1 rounded-lg bg-gray-100 text-black" 
             placeholder="Enter your password" 
+            onChange={(e)=>setPassword(e.target.value)}
           />
 
           <label className="block text-sm font-medium text-gray-600 mt-4">Confirm Password</label>
@@ -37,9 +75,11 @@ function Signup({toggleMode,userPreference}) {
             type="password" 
             className="input input-bordered w-full mt-1 rounded-lg bg-gray-100 text-black" 
             placeholder="Confirm your password" 
+            onChange={(e)=>setConfirmPassword(e.target.value)}
           />
 
-          <button className="btn mt-6 w-full bg-[#F75904]/60 hover:bg-[#F75904]/70 text-white rounded-lg text-lg font-semibold">
+          <button className="btn mt-6 w-full bg-[#F75904]/60 hover:bg-[#F75904]/70 text-white rounded-lg text-lg font-semibold"
+          onClick={signup} >
             Sign Up
           </button>
 

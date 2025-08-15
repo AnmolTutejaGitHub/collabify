@@ -1,6 +1,31 @@
 import {Link} from "react-router";
 import NavBarSecondary from "../NavBar/NavBarSecondary";
+import { useState } from "react";
+import axios from "axios";
+import toast from 'react-hot-toast';
+
 function Login({toggleMode,userPreference}) {
+    const [email,setEmail] = useState("");
+    const [password,setPassword] = useState("");
+
+    async function login(){
+        const id = toast.loading("trying to login...");
+        try{
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/user/login`,{
+                email : email,
+                password : password,
+            })
+            console.log(response.data);
+            toast.success("login successfull!!");
+            const {token , username,user_id} = response.data;
+            localStorage.setItem("token",token);
+        }catch(err){
+            console.log(err);
+            toast.error(err.response?.data?.message || err.response.data.error || "some error occurred");
+        }finally{
+            toast.dismiss(id);
+        }
+    }
     return (
       <div className="relative flex h-screen">
         <div className="absolute top-0 left-0 w-1/2">
@@ -29,6 +54,7 @@ function Login({toggleMode,userPreference}) {
               type="email" 
               className="input input-bordered w-full mt-1 rounded-lg bg-gray-100 text-black" 
               placeholder="Enter your email" 
+              onChange={(e)=>setEmail(e.target.value)}
             />
   
             <label className="block text-sm font-medium text-gray-600 mt-4">Password</label>
@@ -36,13 +62,15 @@ function Login({toggleMode,userPreference}) {
               type="password" 
               className="input input-bordered w-full mt-1 rounded-lg bg-gray-100 text-black" 
               placeholder="Enter your password" 
+              onChange={(e)=>setPassword(e.target.value)}
             />
   
             <div className="text-right mt-2">
-              <Link to="/signup"  className="text-sm text-[#F75904]/60 hover:text-[#F75904]/80 hover:underline font-medium">Forgot Password?</Link>
+              <Link to="/forget-password"  className="text-sm text-[#F75904]/60 hover:text-[#F75904]/80 hover:underline font-medium">Forgot Password?</Link>
             </div>
   
-            <button className="btn mt-6 w-full bg-[#F75904]/60 hover:bg-[#F75904]/70 text-white rounded-lg text-lg font-semibold">
+            <button className="btn mt-6 w-full bg-[#F75904]/60 hover:bg-[#F75904]/70 text-white rounded-lg text-lg font-semibold"
+                onClick={login}>
               Login
             </button>
   

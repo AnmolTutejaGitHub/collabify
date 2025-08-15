@@ -58,13 +58,18 @@ router.post('/signup', async (req, res) => {
     }
 })
 
-router.post("/verifyToken", Auth, async (req, res) => {
+router.post("/generate-Verification-Token", Auth, async (req, res) => {
     try {
       const id = req.userId;
       const user = await User.findById(id);
+      const {email} = req.body;
   
       if (!user) {
         return res.status(400).send({ message: "Invalid user ID" });
+      }
+
+      if(email!=user.email){
+        return res.status(400).send({ message: "signup email and this one doesn't match" });
       }
   
       const token = jwt.sign(
@@ -123,6 +128,7 @@ router.get("/verify/:token", async (req, res) => {
         if (!decoded) res.status(400).send({ message: "Invalid Token" });
         const user = await User.findById(decoded.user_id);
         if (!user) return res.status(400).send({ message: "Invalid Token" });
+        if(user.isVerified) return res.status(200).send({ message: "User is already verified" })
         user.isVerified = true;
         await user.save();
         res.status(200).send({ message: "User has been verified" });
@@ -186,7 +192,7 @@ router.post('/resetPasswordToken', async (req, res) => {
     }
 })
 
-router.patch("/resetPassword/:token", async (req, res) => {
+router.post("/resetPassword/:token", async (req, res) => {
     try {
         const { token } = req.params;
         const { password, confirm_password } = req.body;
@@ -214,7 +220,7 @@ router.patch("/resetPassword/:token", async (req, res) => {
         return res.status(200).send("success");
     } catch (err) {
         console.error(err);
-        return res.status(500).send(err);
+        return res.status(400).send(err);
     }
 })
 
@@ -237,7 +243,7 @@ router.post('/verifytokenAndGetUserDetails', async (req, res) => {
     }
 })
 
-router.put("/updateUser/:id", Auth, async (req, res) => {
+router.post("/updateUser/:id", Auth, async (req, res) => {
     try {
         const userId = req.userId;
         const { id } = req.params;
