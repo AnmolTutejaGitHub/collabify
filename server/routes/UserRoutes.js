@@ -168,7 +168,7 @@ router.post('/resetPasswordToken', async (req, res) => {
         });
 
         let mailOptions = {
-            from: "anmoltutejaserver@gmail.com",
+            from: '"Collabify" <anmoltutejaserver@gmail.com>',
             to: email,
             subject: 'Password Reset Link',
             text: `You requested to reset your password. Click the link below to proceed. This link is valid for 5 minutes:\n\n${config.FRONTEND_URL}/update-password/${token}`,
@@ -237,7 +237,7 @@ router.post('/verifytokenAndGetUserDetails', async (req, res) => {
 
         if(!user.isVerified) return res.status(400).send({error : "Your Email is not verfied !"})
 
-        res.status(200).send({ user: user.name , user_id : user._id});
+        res.status(200).send({ username : user.name , userid : user._id});
     } catch (e) {
         res.status(400).send({ error: 'Invalid or expired token' });
     }

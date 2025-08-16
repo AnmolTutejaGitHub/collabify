@@ -8,6 +8,7 @@ import VerifyYourAccount from './Components/Verify/VerifyYourAccount';
 import ForgetPassword from './Components/UpdatePassword/ForgetPassword';
 import ResetPassword from './Components/UpdatePassword/ResetPassword';
 import { Toaster } from 'react-hot-toast';
+import UserProvider from './Components/UserProvider/UserProvider';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
   return (<div>
     <Toaster/>
     <BrowserRouter>
+    <UserProvider>
       <Routes>
         <Route path="/" element={<Home toggleMode={toggleMode} userPreference={userPreference}/>} />
         <Route path="/login" element={<Login toggleMode={toggleMode} userPreference={userPreference}/>} />
@@ -32,6 +34,7 @@ function App() {
         <Route path="/forget-password" element={<ForgetPassword toggleMode={toggleMode} userPreference={userPreference}/>} />
         <Route path="/update-password/:token" element={<ResetPassword toggleMode={toggleMode} userPreference={userPreference}/>} />
       </Routes>
+      </UserProvider>
      </BrowserRouter>
   </div>)
     

@@ -1,10 +1,20 @@
-import {Link} from "react-router";
+import {Link,useNavigate} from "react-router";
 import NavBarSecondary from "../NavBar/NavBarSecondary";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
 import toast from 'react-hot-toast';
+import useUserStore from "../../store/userStore";
 
 function Login({toggleMode,userPreference}) {
+    const navigate = useNavigate();
+    const {isAuthenticated,setUser} = useUserStore();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+          navigate("/");
+        }
+      },[isAuthenticated]);
+
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
 
@@ -18,10 +28,11 @@ function Login({toggleMode,userPreference}) {
             console.log(response.data);
             toast.success("login successfull!!");
             const {token , username,user_id} = response.data;
+            setUser(username,user_id);
             localStorage.setItem("token",token);
         }catch(err){
             console.log(err);
-            toast.error(err.response?.data?.message || err.response.data.error || "some error occurred");
+            toast.error(err.response?.data?.message || err.response?.data?.error || "some error occurred");
         }finally{
             toast.dismiss(id);
         }

@@ -1,9 +1,12 @@
 import NavBar from "../NavBar/NavBar";
 import { FaGithub } from "react-icons/fa";
 import { CiPlay1 } from "react-icons/ci";
+import useUserStore from "../../store/userStore";
 
 function Home({toggleMode,userPreference}){
-    
+    const { username, userid, isLoading, setUser, clearUser, fetchData } = useUserStore();
+
+    if(isLoading) return <div>isLoading....</div>
     return (
        <section className={`${userPreference.lightmode ? 'bg-white text-black' : 'bg-[#000A08]'} h-[100vh] w-[100vw] bg-cover bg-top`}
        style={{ backgroundImage: "url('circle.png')" }}
