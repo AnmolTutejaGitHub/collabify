@@ -1,7 +1,5 @@
 require('dotenv').config();
 require('../database/mongoose');
-const http = require('http');
-const socketio = require('socket.io');
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -15,13 +13,12 @@ app.use(cors({
 }));
 
 app.use(express.json());
-const server = http.createServer(app);
 const PORT = config.PORT;
 
 app.use("/api/user",userRoutes);
 app.use("/api/collab",codeCollabRoutes);
 
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`)
 })
