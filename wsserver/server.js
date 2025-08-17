@@ -1,16 +1,20 @@
 // ref : https://www.npmjs.com/package/@lamkoti/y-mongodb-provider
 
+require('dotenv').config();
 const http = require('http');
 const WebSocket = require('ws');
 const Y = require('yjs');
 const { MongodbPersistence } = require('y-mongodb-provider');
 const yUtils = require('y-websocket/bin/utils');
+const config = require('./config/config');
 
 const server = http.createServer();
 
+const PORT = congig.PORT;
+
 const wss = new WebSocket.Server({ server });
 
-const mdb = new MongodbPersistence('mongodb://127.0.0.1:27018/collabify', {
+const mdb = new MongodbPersistence(`${config.MONGODB_URL}/collabify`, {
   collectionName: 'yjs-documents',
   flushSize: 100,
   multipleCollections: true,
@@ -34,6 +38,7 @@ yUtils.setPersistence({
 
 wss.on('connection',yUtils.setupWSConnection);
 
-server.listen(1234,() => {
-  console.log('webSocket server running on ws://localhost:1234');
+server.listen(PORT,'0.0.0.0',() => {
+  //console.log('webSocket server running on ws://localhost:1234');
+  console.log(`webSocket server running on ${PORT}`);
 })

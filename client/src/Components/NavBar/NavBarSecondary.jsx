@@ -21,7 +21,7 @@ function NavBarSecondary({ toggleMode, userPreference }) {
         <Link to="/company">Company & Community</Link>
         <Link to="/pricing">Pricing</Link>
         <div className="flex gap-2 items-center">
-          <Link to="/docs">Docs</Link>
+          <Link to="https://www.npmjs.com/package/yjs">Docs</Link>
           <ArrowTopRightOnSquareIcon className="w-5 h-5" />
         </div>
       </div>

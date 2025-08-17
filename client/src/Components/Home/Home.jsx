@@ -2,11 +2,11 @@ import NavBar from "../NavBar/NavBar";
 import { FaGithub } from "react-icons/fa";
 import { CiPlay1 } from "react-icons/ci";
 import useUserStore from "../../store/userStore";
+import {Link} from "react-router";
 
 function Home({toggleMode,userPreference}){
-    const { username, userid, isLoading, setUser, clearUser, fetchData } = useUserStore();
+    const {username,userid,isLoading,setUser,clearUser,fetchData} = useUserStore();
 
-    if(isLoading) return <div>isLoading....</div>
     return (
        <section className={`${userPreference.lightmode ? 'bg-white text-black' : 'bg-[#000A08] text-white'} h-[100vh] w-[100vw] bg-cover bg-top`}
        style={{ backgroundImage: "url('circle.png')" }}
@@ -17,9 +17,9 @@ function Home({toggleMode,userPreference}){
                 <div className="w-1/2 ml-20">
                     <div className="mt-50 flex gap-10">
                         <div className="p-2 bg-[#F75904]/60 text-[#F75904] px-4 rounded-md">Build With Js</div>
-                        <div  className="p-2 bg-[#238DFE]/60 text-[#238DFE] px-4 rounded-md flex items-center gap-2">
+                        <div className="p-2 bg-[#238DFE]/60 text-[#238DFE] px-4 rounded-md flex items-center gap-2">
                             <FaGithub />
-                            <div>Open Source</div>
+                            <Link to="https://github.com/AnmolTutejaGitHub/collabify">Open Source</Link>
                             </div>
                         <div  className="p-2 bg-[#1DD81A]/60 text-[#1DD81A] px-4 rounded-md flex items-center gap-2">
                             <CiPlay1 />

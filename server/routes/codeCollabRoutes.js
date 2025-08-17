@@ -9,6 +9,7 @@ const languageMap = {
     javascript: 63,
     python: 71,
     java: 62,
+    c : 50,
     cpp: 54,
     csharp: 51,
     go: 60,
@@ -28,7 +29,7 @@ router.get("/create",Auth,(req,res)=>{
 // https://rapidapi.com/judge0-official/api/judge0-ce
 router.post("/run-code",Auth,async(req,res)=>{
     try{
-        const {language,source_code} = req.body;
+        const {language,source_code,stdin} = req.body;
         if (!language || !source_code){
             return res.status(400).send({ error: "language or source code missing" });
         }
@@ -36,7 +37,8 @@ router.post("/run-code",Auth,async(req,res)=>{
             "https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=false&wait=true",
             { 
               language_id : languageMap[language],
-              source_code
+              source_code,
+              stdin : stdin || ""
             },
             {
               headers: {
