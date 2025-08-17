@@ -17,7 +17,7 @@ function NavBarSecondary({ toggleMode, userPreference }) {
 
       <div className="flex gap-6 items-center text-lg">
         <Link to="/">Home</Link>
-        <Link to="/mission">Mission</Link>
+        <Link to="/start">Start</Link>
         <Link to="/company">Company & Community</Link>
         <Link to="/pricing">Pricing</Link>
         <div className="flex gap-2 items-center">

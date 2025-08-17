@@ -8,7 +8,7 @@ function Home({toggleMode,userPreference}){
 
     if(isLoading) return <div>isLoading....</div>
     return (
-       <section className={`${userPreference.lightmode ? 'bg-white text-black' : 'bg-[#000A08]'} h-[100vh] w-[100vw] bg-cover bg-top`}
+       <section className={`${userPreference.lightmode ? 'bg-white text-black' : 'bg-[#000A08] text-white'} h-[100vh] w-[100vw] bg-cover bg-top`}
        style={{ backgroundImage: "url('circle.png')" }}
        >
             <NavBar toggleMode={toggleMode}/>
@@ -29,6 +29,7 @@ function Home({toggleMode,userPreference}){
                     <div className="mt-10">
                         <div className="text-7xl font-bold">Code Collaboration Platform</div>
                         <div className="mt-5 text-xl">Collaborate with others and code together in real time.</div>
+                        {/* <button className="mt-5 text-xl bg-[#008FB5]/60 text-[#008FB5] px-4 p-2 rounded-md">Start</button> */}
                     </div>
                 </div>
                 <div className="w-1/2 flex justify-end m-10 mr-20">

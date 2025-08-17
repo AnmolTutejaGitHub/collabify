@@ -7,6 +7,7 @@ const cors = require('cors');
 const app = express();
 const config = require('../config/config');
 const userRoutes = require('../routes/UserRoutes');
+const codeCollabRoutes = require('../routes/codeCollabRoutes');
 
 app.use(cors({
     origin: `${config.FRONTEND_URL}`,
@@ -18,6 +19,7 @@ const server = http.createServer(app);
 const PORT = config.PORT;
 
 app.use("/api/user",userRoutes);
+app.use("/api/collab",codeCollabRoutes);
 
 
 server.listen(PORT, () => {

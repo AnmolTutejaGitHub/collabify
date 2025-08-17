@@ -15,16 +15,17 @@ function NavBar({ toggleMode }) {
     <div className="p-6 bg-transparent flex justify-between items-center">
       <div className="flex gap-4 items-center text-xl">
         <FaGithub />
-        <div>GitHub</div>
+        <Link to="https://github.com/AnmolTutejaGitHub/collabify">GitHub</Link>
       </div>
 
-      <div className="flex gap-4 items-center text-xl absolute left-1/2 -translate-x-1/2">
-        <div>Mission</div>
-        <div>Company & Community</div>
-        <div>Pricing</div>
-        <div className="flex gap-2 items-center justify-center">
-          <div>Docs</div>
-          <ArrowTopRightOnSquareIcon className="w-6 h-6" />
+      <div className="flex gap-6 items-center text-lg">
+        <Link to="/">Home</Link>
+        <Link to="/start">Start</Link>
+        <Link to="/company">Company & Community</Link>
+        <Link to="/pricing">Pricing</Link>
+        <div className="flex gap-2 items-center">
+          <Link to="/docs">Docs</Link>
+          <ArrowTopRightOnSquareIcon className="w-5 h-5" />
         </div>
       </div>
 
@@ -41,7 +42,7 @@ function NavBar({ toggleMode }) {
         ) : (
           <>
             <Link to="/login">Log in</Link>
-            <div>Get Started</div>
+            <Link to="/signup">Get Started</Link>
           </>
         )}
       </div>

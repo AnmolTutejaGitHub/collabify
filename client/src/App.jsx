@@ -9,6 +9,9 @@ import ForgetPassword from './Components/UpdatePassword/ForgetPassword';
 import ResetPassword from './Components/UpdatePassword/ResetPassword';
 import { Toaster } from 'react-hot-toast';
 import UserProvider from './Components/UserProvider/UserProvider';
+import Start from "./Components/Start/Start";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import Collab from "./Components/Collab/Collab";
 
 function App() {
 
@@ -33,6 +36,18 @@ function App() {
         <Route path="/verify-email/:token" element={<VerifyYourAccount toggleMode={toggleMode} userPreference={userPreference}/>} />
         <Route path="/forget-password" element={<ForgetPassword toggleMode={toggleMode} userPreference={userPreference}/>} />
         <Route path="/update-password/:token" element={<ResetPassword toggleMode={toggleMode} userPreference={userPreference}/>} />
+        <Route path="/start" element={
+          <ProtectedRoute>
+            <Start toggleMode={toggleMode} userPreference={userPreference}/>
+          </ProtectedRoute>
+        }
+        />
+        <Route path="/collab/:id" element={
+          <ProtectedRoute>
+            <Collab/>
+          </ProtectedRoute>
+        }
+        />
       </Routes>
       </UserProvider>
      </BrowserRouter>
