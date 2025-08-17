@@ -6,6 +6,7 @@ const config = {
     JWT_TOKEN_SECRET : process.env.JWT_TOKEN_SECRET,
     JWT_TOKEN_SIGNUP_MAIL_SECRET : process.env.JWT_TOKEN_SIGNUP_MAIL_SECRET,
     JWT_RESET_PASSWORD_SECRET : process.env.JWT_RESET_PASSWORD_SECRET,
+    JUDGE0_API_KEY : process.env.JUDGE0_API_KEY
 }
 
 module.exports  = config;

@@ -26,7 +26,7 @@ function Login({toggleMode,userPreference}) {
                 password : password,
             })
             console.log(response.data);
-            toast.success("login successfull");
+            toast.success("login successful");
             const {token , username,user_id} = response.data;
             setUser(username,user_id);
             localStorage.setItem("token",token);
