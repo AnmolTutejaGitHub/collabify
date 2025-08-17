@@ -10,7 +10,7 @@ const config = require('./config/config');
 
 const server = http.createServer();
 
-const PORT = congig.PORT;
+const PORT = config.PORT;
 
 const wss = new WebSocket.Server({ server });
 
