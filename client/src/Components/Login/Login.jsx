@@ -32,7 +32,7 @@ function Login({toggleMode,userPreference}) {
             localStorage.setItem("token",token);
         }catch(err){
             console.log(err);
-            toast.error(err.response?.data?.message || err.response?.data?.error || "some error occurred");
+            toast.error(err.response?.data?.message || err.response?.data?.error || err.response?.data || "some error occurred");
         }finally{
             toast.dismiss(id);
         }

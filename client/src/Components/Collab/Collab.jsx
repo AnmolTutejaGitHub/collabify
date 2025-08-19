@@ -51,7 +51,7 @@ function Collab(){
             toast.success("judge0 api call successful");
         }catch(err){
             console.log(err);
-            toast.error(err.response?.data?.message || err.response?.data?.error || "some error occurred");
+            toast.error(err.response?.data?.message || err.response?.data?.error || err.response?.data || "some error occurred");
         }finally{
             toast.dismiss(id);
         }

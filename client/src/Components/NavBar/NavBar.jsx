@@ -36,7 +36,7 @@ function NavBar({ toggleMode }) {
 
         {isAuthenticated ? (
           <>
-            <span>{username}</span>
+            <Link to="/profile">{username}</Link>
             <div onClick={logout}>Logout</div>
           </>
         ) : (

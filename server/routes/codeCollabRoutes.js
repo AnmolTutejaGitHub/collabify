@@ -4,6 +4,7 @@ const config = require("../config/config");
 const Auth = require("../middleware/Auth");
 const { v4: uuidv4 } = require("uuid");
 const axios = require('axios');
+const {Judge0Limiter} = require("../middleware/RateLimiters");
 
 const languageMap = {
     javascript: 63,
@@ -27,7 +28,7 @@ router.get("/create",Auth,(req,res)=>{
 })
 
 // https://rapidapi.com/judge0-official/api/judge0-ce
-router.post("/run-code",Auth,async(req,res)=>{
+router.post("/run-code",Auth,Judge0Limiter,async(req,res)=>{
     try{
         const {language,source_code,stdin} = req.body;
         if (!language || !source_code){

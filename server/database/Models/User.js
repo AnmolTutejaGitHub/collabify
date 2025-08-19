@@ -48,6 +48,9 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    history:{
+        type : [Object]
+    }
 })
 
 UserSchema.pre('save', async function (next) {

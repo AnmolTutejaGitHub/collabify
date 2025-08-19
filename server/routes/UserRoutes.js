@@ -6,8 +6,9 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
 const config = require("../config/config");
 const bcrypt = require("bcrypt");
+const {LoginLimiter,SignupLimiter} = require("../middleware/RateLimiters");
 
-router.post('/login', async (req, res) => {
+router.post('/login', LoginLimiter, async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await User.findOne({ email });
@@ -35,7 +36,7 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.post('/signup', async (req, res) => {
+router.post('/signup',SignupLimiter, async (req, res) => {
     const { email, password,confirm_password, name } = req.body;
     try {
         if(password != confirm_password){
@@ -44,7 +45,7 @@ router.post('/signup', async (req, res) => {
         const exist = await User.findOne({
             email : email
         })
-        console.log(exist)
+        
         if(exist && !exist.isVerified) {
             const delc = await User.deleteOne({email : email});
             console.log(delc)
@@ -93,18 +94,18 @@ router.post("/generate-Verification-Token", Auth, async (req, res) => {
         to: user.email,
         subject: 'Email Verification Link',
         html: `
-  <h3>Email Verification</h3>
-  <p>Click the button below to verify your email:</p>
-  <a 
-    href="${config.FRONTEND_URL}/verify-email/${token}" 
-    style="display: inline-block; margin: 10px 0; padding: 10px 20px; background-color: #000814; color: #ffffff; text-decoration: none; border-radius: 5px;"
-  >
-    Verify Email
-  </a>
-  <p>If the button doesn't work, copy and paste this URL into your browser:</p>
-  <p>${config.FRONTEND_URL}/verify-email/${token}</p>
-  <p><b>Note:</b> This link is valid for only 5 minutes.</p>
-`,
+        <h3>Email Verification</h3>
+        <p>Click the button below to verify your email:</p>
+        <a 
+            href="${config.FRONTEND_URL}/verify-email/${token}" 
+            style="display: inline-block; margin: 10px 0; padding: 10px 20px; background-color: #000814; color: #ffffff; text-decoration: none; border-radius: 5px;"
+        >
+        Verify Email
+        </a>
+        <p>If the button doesn't work, copy and paste this URL into your browser:</p>
+        <p>${config.FRONTEND_URL}/verify-email/${token}</p>
+        <p><b>Note:</b> This link is valid for only 5 minutes.</p>
+        `,
       };
   
       transporter.sendMail(mailOptions, (error, info) => {
@@ -255,8 +256,38 @@ router.post("/updateUser/:id", Auth, async (req, res) => {
         await user.save();
         res.status(200).send(user);
     } catch (err) {
-        res.status(400).send(err);
+        res.status(500).send(err);
     }
+})
+
+router.get("/user-details",Auth,async(req,res)=>{
+    try{
+        const userId = req.userId;
+        const user = await User.findById(userId);
+        res.status(200).send({name : user.name,email : user.email,userid : user._id});
+    }catch(err){
+        res.status(500).send(err);
+    }
+})
+
+router.post("/add-to-user-history",async(req,res)=>{
+    try{
+        const userId = req.userId;
+        const url = req.body;
+        const user = await User.findById(id);
+        user.history.push({
+            url : url,
+            timestamp : Date.now()
+        })
+        await user.save();
+        res.status(200).send({message : "success"});
+    }catch(err){
+        res.status(500).send(err);
+    }
+})
+
+router.get("/recent-activity",Auth,async(req,res)=>{
+
 })
 
 

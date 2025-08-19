@@ -14,6 +14,7 @@ import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import Collab from "./Components/Collab/Collab";
 import Pricing from "./Components/Pricing/Pricing";
 import About from "./Components/About/About";
+import Profile from "./Components/Profile/Profile";
 
 function App() {
 
@@ -49,6 +50,12 @@ function App() {
         <Route path="/collab/:id" element={
           <ProtectedRoute>
             <Collab/>
+          </ProtectedRoute>
+        }
+        />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile toggleMode={toggleMode} userPreference={userPreference}/>
           </ProtectedRoute>
         }
         />
