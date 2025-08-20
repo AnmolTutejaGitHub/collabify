@@ -70,6 +70,20 @@ function Collab(){
         }
     }
 
+    async function checkSocketServerUrl(){
+        const id = toast.loading("compiling....");
+        try{
+            const response = await axios.get(`${import.meta.env.VITE_SOCKET_SERVER_URL}/check-socket-server`);
+            toast.success("Websocket server is up");
+        }catch(err){
+            toast.error("Currently websocket server is deployed on onrender free tier ,server takes time to start, you have to wait for 5-20 mins , after that everything will be in sync");
+            console.log(err);
+        }finally{
+            toast.dismiss(id);
+        }
+        
+    }
+
     return(
         <div className="h-screen w-full flex flex-col bg-black">
             <div className="bg-gray-800 text-white flex justify-between items-center text-sm p-1 px-2">
@@ -84,7 +98,10 @@ function Collab(){
                     <option value="ruby">Ruby</option>
                     <option value="php">PHP</option>
                 </select>
-                <button className="cursor-pointer bg-gray-700 p-2" onClick={compileAndRun}>Compile & Run</button>
+                <div className="flex gap-2">
+                    <button className="cursor-pointer bg-gray-700 p-2 rounded-md" onClick={compileAndRun}>Compile & Run</button>
+                    <button className="cursor-pointer bg-gray-700 p-2 rounded-md" onClick={checkSocketServerUrl}>status</button>
+                </div>
             </div>
 
         <div className="flex-1">

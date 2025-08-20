@@ -8,7 +8,19 @@ const { MongodbPersistence } = require('y-mongodb-provider');
 const yUtils = require('y-websocket/bin/utils');
 const config = require('./config/config');
 
-const server = http.createServer();
+// const server = http.createServer();
+const server = http.createServer((req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    if (req.method === 'GET' && req.url === '/check-socket-server') {
+      res.writeHead(200,{ 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ status: 'up' }));
+    } else {
+      res.writeHead(404,{ 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Not Found' }));
+    }
+})
 
 const PORT = config.PORT;
 
