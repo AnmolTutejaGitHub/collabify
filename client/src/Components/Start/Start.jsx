@@ -2,7 +2,7 @@ import NavBar from "../NavBar/NavBar";
 import axios from "axios";
 import toast from 'react-hot-toast';
 import {useState} from "react";
-import { IoCopySharp } from "react-icons/io5";
+import {ClipboardText,CheckCircle} from "phosphor-react";
 
 
 function Start({toggleMode,userPreference}) {
@@ -34,35 +34,54 @@ function Start({toggleMode,userPreference}) {
         setCopiedUrl(true);
         setTimeout(() => setCopiedUrl(false), 2000);
       })
-      .catch(err => console.error("Failed to copy!", err));
+      .catch(err => console.error(err));
   }
   return (
     <div className={`h-[100vh] w-[100vw] flex flex-col ${
         userPreference.lightmode ? "bg-white text-black" : "bg-black text-white"}`}
     style={{ backgroundImage: "url('circle.png')" }}>
       <NavBar toggleMode={toggleMode}/>
-      <div className="flex items-center justify-center h-full w-full">
-        <div className="bg-[#F8F9FB] p-6 rounded-2xl shadow-lg w-100">
-            <div>
-                <div>
-                <img
-                    src="/illustration-Azuc-YCm.svg"
-                    className="max-h-[60%] object-contain drop-shadow-xl animate-float"
+      <div className="relative z-10 flex items-center justify-center flex-1 p-6">
+        <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-8 w-full max-w-lg">
+          <h1 className="text-2xl font-bold text-center mb-6">
+            Create a Collab Session
+          </h1>
+          <img
+             src="/illustration-Azuc-YCm.svg"
+              className="max-h-[60%] object-contain drop-shadow-xl animate-float"
                 />
-                </div>
-                <div className="flex items-center gap-2">
-                    <input type="text" placeholder="Synchronised Coding Environment URL" 
-                     className="input input-bordered w-full mt-1 rounded-lg bg-gray-200 text-black" readOnly 
-                     value={url}/>
-                    <button className={`p-2 rounded ${copiedUrl ? 'bg-green-500' : 'bg-gray-300'} hover:${copiedUrl ? 'bg-green-600' : 'bg-gray-400'}`} onClick={copyUrlToClipboard}>
-                        <IoCopySharp size={20} />
-                    </button>
-                </div>
-                <button className="btn mt-6 w-full bg-[#F75904]/60 hover:bg-[#F75904]/70 text-white rounded-lg text-lg font-semibold"
-                onClick={generate}>
-                    Generate
-                </button>
-            </div>
+          <div className="flex items-center gap-2 mb-6">
+            <input
+              type="text"
+              placeholder="Your session link will appear here..."
+              className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-gray-300 focus:outline-none"
+              readOnly
+              value={url}
+            />
+            <button
+              className={`p-2 rounded-lg ${
+                copiedUrl
+                  ? "bg-green-600 hover:bg-green-600"
+                  : "bg-gray-600 hover:bg-gray-700"
+              }`}
+              onClick={copyUrlToClipboard}
+            >
+            <>
+            {!copiedUrl ?
+                <ClipboardText size={20} className="text-white" />
+             :
+                <CheckCircle size={20} className="text-white" />
+            }
+            </>
+            </button>
+          </div>
+
+          <button
+            className="w-full py-3 rounded-lg bg-[#F75904]/80 hover:bg-[#F75904]/90 text-white text-lg font-semibold transition"
+            onClick={generate}
+          >
+            Create
+          </button>
         </div>
       </div>
     </div>
@@ -70,3 +89,5 @@ function Start({toggleMode,userPreference}) {
 }
 
 export default Start;
+
+

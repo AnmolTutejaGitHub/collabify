@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import axios from "axios";
 import { FaPlay } from "react-icons/fa";
 
+
 function Collab(){
     const { id } = useParams();
     const {username, userid} = useUserStore();
@@ -33,7 +34,19 @@ function Collab(){
             provider.awareness
         );
         
-        console.log(provider.awareness);                
+        const awareness = provider.awareness;
+        awareness.on('change', changes => {
+            console.log(Array.from(awareness.getStates().values()))
+         })    
+
+
+        const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+
+        awareness.setLocalStateField('user', {
+            name: `${username}`,
+            color: `${randomColor}`
+        })      
+        
     }
 
     async function compileAndRun(){

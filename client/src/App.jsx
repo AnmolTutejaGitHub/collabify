@@ -13,8 +13,8 @@ import Start from "./Components/Start/Start";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import Collab from "./Components/Collab/Collab";
 import Pricing from "./Components/Pricing/Pricing";
-import About from "./Components/About/About";
 import Profile from "./Components/Profile/Profile";
+import Company from "./Components/Company/Company";
 
 function App() {
 
@@ -40,7 +40,7 @@ function App() {
         <Route path="/forget-password" element={<ForgetPassword toggleMode={toggleMode} userPreference={userPreference}/>} />
         <Route path="/update-password/:token" element={<ResetPassword toggleMode={toggleMode} userPreference={userPreference}/>} />
         <Route path="/pricing" element={<Pricing toggleMode={toggleMode} userPreference={userPreference}/>} />
-        <Route path="/company" element={<About toggleMode={toggleMode} userPreference={userPreference}/>} />
+        <Route path="/company" element={<Company toggleMode={toggleMode} userPreference={userPreference}/>} />
         <Route path="/start" element={
           <ProtectedRoute>
             <Start toggleMode={toggleMode} userPreference={userPreference}/>
