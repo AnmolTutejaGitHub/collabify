@@ -20,11 +20,11 @@ function Testimonial({rating,quote,image,name,role}){
     
     return (
         <div className={`bg-white/10 backdrop-blur-lg p-6 shadow rounded-xl w-[400px]`}>
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                   {Array.from({ length: rating }).map((_,i) => (
                     <Star key={i} />
                   ))}
-                </div>
+                </div> */}
                 <p className="mt-6 text-white/90">“{quote}”</p>
                 <div className="mt-6 flex items-center">
                   <img

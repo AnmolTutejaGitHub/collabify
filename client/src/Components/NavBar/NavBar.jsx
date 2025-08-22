@@ -21,7 +21,7 @@ function NavBar({ toggleMode }) {
       <div className="flex gap-6 items-center text-lg">
         <Link to="/">Home</Link>
         <Link to="/start">Start</Link>
-        <Link to="/company">Company & Community</Link>
+        <a href="#company">Company & Community</a>
         <Link to="/pricing">Pricing</Link>
         <div className="flex gap-2 items-center">
           <Link to="https://www.npmjs.com/package/yjs">Docs</Link>

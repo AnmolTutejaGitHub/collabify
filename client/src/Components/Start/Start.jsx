@@ -3,12 +3,17 @@ import axios from "axios";
 import toast from 'react-hot-toast';
 import {useState} from "react";
 import {ClipboardText,CheckCircle} from "phosphor-react";
+import { IoIosInformationCircleOutline } from "react-icons/io";
+
 
 
 function Start({toggleMode,userPreference}) {
   const [url,setUrl] = useState("");
   const token = localStorage.getItem("token");
   const [copiedUrl,setCopiedUrl] = useState(false);
+  const [history,setHistory] = useState(null);
+  const [pageNo,setPageNo] = useState(0);
+  const PAGE_ITEM_LIMIT = 10;
   async function generate(){
     const id = toast.loading("generating...");
     setCopiedUrl(false);
@@ -32,16 +37,41 @@ function Start({toggleMode,userPreference}) {
     navigator.clipboard.writeText(url)
       .then(() => {
         setCopiedUrl(true);
-        setTimeout(() => setCopiedUrl(false), 2000);
+        setTimeout(() => setCopiedUrl(false),2000);
       })
       .catch(err => console.error(err));
   }
+
+  async function handlePaging(){
+    try{
+
+    }catch(err){
+
+    }finally{}
+  }
+
+  async function nextClicked(){
+    try{
+
+    }catch(err){
+
+    }finally{}
+  }
+
+  async function prevClicked(){
+    try{
+
+    }catch(err){
+
+    }finally{}
+  }
+
   return (
     <div className={`h-[100vh] w-[100vw] flex flex-col ${
         userPreference.lightmode ? "bg-white text-black" : "bg-black text-white"}`}
     style={{ backgroundImage: "url('circle.png')" }}>
       <NavBar toggleMode={toggleMode}/>
-      <div className="relative z-10 flex items-center justify-center flex-1 p-6">
+      <div className="relative flex items-center justify-center flex-1 p-6 gap-20">
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-8 w-full max-w-lg">
           <h1 className="text-2xl font-bold text-center mb-6">
             Create a Collab Session
@@ -82,6 +112,25 @@ function Start({toggleMode,userPreference}) {
           >
             Create
           </button>
+        </div>
+        <div className="bg-white/10 backdrop-blur-lg h-200 w-200 rounded-2xl shadow-2xl p-6 flex flex-col flex-grow">
+            <div className="text-2xl font-bold flex justify-center">History</div>
+            <div className="flex-1">
+            {!history ? (
+            <div className="fixed inset-0 flex items-center justify-center text-2xl text-gray-500">
+                <div className="flex items-center gap-2">
+                    <IoIosInformationCircleOutline className="h-6 w-6 font-bold" />
+                <div>User has no history</div>
+            </div>
+        </div>
+        ) : null}
+    </div>
+        {
+        history &&  <div className="flex justify-center item-center gap-3">
+            <button className="bg-white/10 backdrop-blur-lg p-2 rounded-md w-20 cursor-pointer">prev</button>
+            <button className="bg-white/10 backdrop-blur-lg p-2 rounded-md w-20 cursor-pointer">Next</button>
+        </div>
+        }
         </div>
       </div>
     </div>
