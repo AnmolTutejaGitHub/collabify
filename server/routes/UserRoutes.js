@@ -286,8 +286,38 @@ router.post("/add-to-user-history",async(req,res)=>{
     }
 })
 
-router.get("/recent-activity",Auth,async(req,res)=>{
+/**
+ * paging reference : https://codebeyondlimits.com/articles/pagination-in-mongodb-the-only-right-way-to-implement-it-and-avoid-common-mistakes
+ */
 
+router.get("/recent-activity",Auth,async(req,res)=>{
+    const {page,pageSize} = req.query;
+    try{
+        const DEFAULT_PAGE_NO = 1;
+        const DEFAULT_PAGE_SIZE = 10;
+
+        page = parseInt(page,10) || DEFAULT_PAGE_NO;
+        pageSize = parseInt(pageSize,10) || DEFAULT_PAGE_SIZE;
+        const urls = await User.aggregate([
+            {
+              $facet: {
+                metadata: [{ $count: 'totalCount' }],
+                data: [{ $skip: (page - 1) * pageSize }, { $limit: pageSize }],
+              },
+            },
+          ]);
+
+        res.status(200).send({
+            history : urls,
+            page : page,
+            pageSize : pageSize,
+            next : page + 1,
+            prev : page - 1
+        })
+
+    }catch(err){
+        res.status(400),send(err);
+    }
 })
 
 

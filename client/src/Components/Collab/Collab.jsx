@@ -71,7 +71,7 @@ function Collab(){
     }
 
     async function checkSocketServerUrl(){
-        const id = toast.loading("compiling....");
+        const id = toast.loading("checking status....");
         try{
             const response = await axios.get(`${import.meta.env.VITE_SOCKET_SERVER_URL}/check-socket-server`);
             toast.success("Websocket server is up");

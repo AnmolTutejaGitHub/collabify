@@ -77,5 +77,4 @@ function ForgetPassword({ toggleMode, userPreference }) {
     </div>
   )
 }
-
 export default ForgetPassword;
