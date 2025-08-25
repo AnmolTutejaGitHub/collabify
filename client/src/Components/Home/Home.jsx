@@ -45,17 +45,13 @@ function Home({toggleMode,userPreference}){
     }
     
     return (
-       <section className={`${userPreference.lightmode ? 'bg-white text-black' : 'bg-[#000A08] text-white'} bg-cover bg-top`}
-            style={{ 
-                backgroundImage: window.innerWidth <= 768 ? "none" : "url('circle.png')",
-                backgroundSize: window.innerWidth <= 768 ? "auto" : "contain",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "top"}}
-            >
+       <section className={`${userPreference.lightmode ? 'bg-white text-black' : 'bg-[#000A08] text-white'} bg-cover bg-top
+        bg-none xl:bg-[url('/circle.png')] 
+        lg:bg-contain lg:bg-no-repeat lg:bg-top`}>
             <NavBar toggleMode={toggleMode}/>
 
             <div className="flex mt-10 w-full">
-                <div className="w-1/2 ml-20">
+                <div className="w-1/2 ml-20 sm:ml-2 max-lg:w-full">
                     <div className="md:mt-50 flex gap-10 max-lg:gap-6">
                         <div className="p-2 bg-[#F75904]/60 text-[#F75904] px-4 rounded-md whitespace-nowrap">Build With Js</div>
                         <div className="p-2 bg-[#238DFE]/60 text-[#238DFE] px-4 rounded-md flex items-center gap-2 whitespace-nowrap">
@@ -73,7 +69,7 @@ function Home({toggleMode,userPreference}){
                         {/* <button className="mt-5 text-xl bg-[#008FB5]/60 text-[#008FB5] px-4 p-2 rounded-md">Start</button> */}
                     </div>
                 </div>
-                <div className="w-1/2 flex justify-end m-10 mr-20 max-md:hidden">
+                <div className="w-1/2 flex justify-end m-10 mr-20 max-lg:hidden">
                     <img src="/code.jpg" className="h-[80vh]"></img>
                 </div>
             </div>

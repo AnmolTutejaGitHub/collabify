@@ -1,4 +1,4 @@
-function Testimonial({rating,quote,image,name,role}){
+function Testimonial({rating,quote,image,name,role,userPreference}){
     const Star = () => (
         <svg
           className="w-5 h-5 text-yellow-500"
@@ -19,20 +19,20 @@ function Testimonial({rating,quote,image,name,role}){
       )
     
     return (
-        <div className={`bg-white/10 backdrop-blur-lg p-6 shadow rounded-xl w-[400px]`}>
+        <div className={`bg-white/10 backdrop-blur-lg p-6 shadow rounded-xl w-[400px] ${userPreference.lightmode ? 'text-black' : ''}`}>
                 {/* <div className="flex items-center">
                   {Array.from({ length: rating }).map((_,i) => (
                     <Star key={i} />
                   ))}
                 </div> */}
-                <p className="mt-6 text-white/90">“{quote}”</p>
+                <p className={`mt-6 ${userPreference.lightmode ? 'text-black' : 'text-white/90'}`}>“{quote}”</p>
                 <div className="mt-6 flex items-center">
                   <img
                     className="w-11 h-11 rounded-full object-cover"
                     src={image}
                   />
                   <div className="ml-4">
-                    <p className="font-bold text-white/90">{name}</p>
+                    <p className="font-bold ${userPreference.lightmode ? 'text-black' : 'text-white/90'}">{name}</p>
                     <p className="text-sm text-gray-200">{role}</p>
                   </div>
                 </div>

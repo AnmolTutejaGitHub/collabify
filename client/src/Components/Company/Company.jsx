@@ -32,8 +32,8 @@ const Company = ({ toggleMode,userPreference }) => {
     },
   ];
 
-  return (<div className={`${userPreference.lightmode ? 'bg-white text-black' : 'bg-[#000A08] text-white'} bg-cover bg-top`}
-  style={{ backgroundImage: "url('circle.png')" }}
+  return (<div className={`${userPreference.lightmode ? 'bg-white text-black' : 'bg-[#000A08] text-white'} bg-cover bg-top 
+  bg-none xl:bg-[url('/circle.png')]`}
   >
     {/* <NavBar toggleMode={toggleMode} userPreference={userPreference}/> */}
     <div className="font-pj flex flex-col gap-8 justify-center items-center mt-40" id="company">
@@ -41,7 +41,7 @@ const Company = ({ toggleMode,userPreference }) => {
         <div className="p-4 pb-2">
         <div className="mt-16 grid grid-cols-1 gap-6 xl:grid-cols-3">
             {testimonials.map((t,index) => (
-              <Testimonal rating = {t.rating} quote={t.quote} image={t.image} name={t.name} role={t.role}/>
+              <Testimonal rating = {t.rating} quote={t.quote} image={t.image} name={t.name} role={t.role} userPreference={userPreference}/>
             ))}
           </div>
         </div>
