@@ -48,7 +48,7 @@ function Profile({toggleMode,userPreference }) {
                 </div>
             </div>
             <div className="flex flex-col gap-2">
-                <div className="grid grid-cols-2 gap-y-96 justify-between p-4 w-200">
+                <div className="grid grid-cols-2 gap-y-96 justify-between p-4 w-200 max-sm:w-140 max-md:w-160">
                     <div>
                         <div className="font-semibold">First Name</div>
                         <div className="text-gray-400">{userDetails?.name}</div>
@@ -58,7 +58,7 @@ function Profile({toggleMode,userPreference }) {
                         <div  className="text-gray-400">N/A</div>
                     </div>
                 </div>
-                <div className="grid grid-cols-2 gap-y-96 justify-between p-4 w-200">
+                <div className="grid grid-cols-2 gap-y-96 justify-between p-4 w-200 max-sm:w-140 max-md:w-160">
                     <div>
                         <div className="font-semibold">Email</div>
                         <div  className="text-gray-400">{userDetails?.email}</div>
@@ -68,7 +68,7 @@ function Profile({toggleMode,userPreference }) {
                         <div  className="text-gray-400">N/A</div>
                     </div>
                 </div>
-                <div className="grid grid-cols-2 gap-y-96 justify-between p-4 w-200">
+                <div className="grid grid-cols-2 gap-y-96 justify-between p-4 w-200 max-sm:w-140 max-md:w-160">
                     <div>
                         <div className="font-semibold">Gender</div>
                         <div  className="text-gray-400">N/A</div>

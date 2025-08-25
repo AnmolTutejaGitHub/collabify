@@ -67,11 +67,13 @@ function Start({toggleMode,userPreference}) {
   }
 
   return (
-    <div className={`h-[100vh] w-[100vw] flex flex-col ${
-        userPreference.lightmode ? "bg-white text-black" : "bg-black text-white"}`}
-    style={{ backgroundImage: "url('circle.png')" }}>
+    <div className={`${userPreference.lightmode ? 'bg-white text-black' : 'bg-[#000A08] text-white'} bg-cover bg-top lg:h-[100vh] lg:w-[100vw]`}
+            style={{ 
+            backgroundImage: "url('circle.png')", 
+            backgroundPosition: "top"}}
+    >
       <NavBar toggleMode={toggleMode}/>
-      <div className="relative flex items-center justify-center flex-1 p-6 gap-20">
+      <div className="relative flex items-center justify-center flex-1 p-6 gap-20 max-lg:flex-col">
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-8 w-full max-w-lg">
           <h1 className="text-2xl font-bold text-center mb-6">
             Create a Collab Session
@@ -113,7 +115,7 @@ function Start({toggleMode,userPreference}) {
             Create
           </button>
         </div>
-        <div className="bg-white/10 backdrop-blur-lg h-200 w-200 rounded-2xl shadow-2xl p-6 flex flex-col flex-grow">
+        <div className="bg-white/10 backdrop-blur-lg h-180 w-200 max-md:w-140 rounded-2xl shadow-2xl p-6 flex flex-col flex-grow m-4">
             <div className="text-2xl font-bold flex justify-center">History</div>
             <div className="flex-1">
             {!history ? (

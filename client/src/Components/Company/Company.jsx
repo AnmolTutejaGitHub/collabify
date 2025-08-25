@@ -37,9 +37,9 @@ const Company = ({ toggleMode,userPreference }) => {
   >
     {/* <NavBar toggleMode={toggleMode} userPreference={userPreference}/> */}
     <div className="font-pj flex flex-col gap-8 justify-center items-center mt-40" id="company">
-        <div className={`${userPreference.lightmode ? 'text-black' : 'text-white' } text-5xl font-bold`}>Our happy <span className="text-[#F75904]/70">clients</span> says about us</div>
+        <div className={`${userPreference.lightmode ? 'text-black' : 'text-white' } text-5xl font-bold p-4`}>Our happy <span className="text-[#F75904]/70">clients</span> says about us</div>
         <div className="p-4 pb-2">
-        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="mt-16 grid grid-cols-1 gap-6 xl:grid-cols-3">
             {testimonials.map((t,index) => (
               <Testimonal rating = {t.rating} quote={t.quote} image={t.image} name={t.name} role={t.role}/>
             ))}

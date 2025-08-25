@@ -10,6 +10,7 @@ import { MonacoBinding } from "y-monaco";
 import { useRef } from "react";
 import Company from "../Company/Company";
 import FrequentlyAsked from "../Home/FrequentlyAsked";
+import Feature from "./Feature";
 
 function Home({toggleMode,userPreference}){
     const {username,userid,isLoading,setUser,clearUser,fetchData } = useUserStore();
@@ -45,23 +46,23 @@ function Home({toggleMode,userPreference}){
     
     return (
        <section className={`${userPreference.lightmode ? 'bg-white text-black' : 'bg-[#000A08] text-white'} bg-cover bg-top`}
-       style={{ 
-       backgroundImage: "url('circle.png')", 
-       backgroundSize: "contain",
-       backgroundRepeat: "no-repeat",
-       backgroundPosition: "top"}}
-       >
+            style={{ 
+                backgroundImage: window.innerWidth <= 768 ? "none" : "url('circle.png')",
+                backgroundSize: window.innerWidth <= 768 ? "auto" : "contain",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "top"}}
+            >
             <NavBar toggleMode={toggleMode}/>
 
             <div className="flex mt-10 w-full">
                 <div className="w-1/2 ml-20">
-                    <div className="mt-50 flex gap-10">
-                        <div className="p-2 bg-[#F75904]/60 text-[#F75904] px-4 rounded-md">Build With Js</div>
-                        <div className="p-2 bg-[#238DFE]/60 text-[#238DFE] px-4 rounded-md flex items-center gap-2">
+                    <div className="md:mt-50 flex gap-10 max-lg:gap-6">
+                        <div className="p-2 bg-[#F75904]/60 text-[#F75904] px-4 rounded-md whitespace-nowrap">Build With Js</div>
+                        <div className="p-2 bg-[#238DFE]/60 text-[#238DFE] px-4 rounded-md flex items-center gap-2 whitespace-nowrap">
                             <FaGithub />
                             <Link to="https://github.com/AnmolTutejaGitHub/collabify">Open Source</Link>
                             </div>
-                        <div  className="p-2 bg-[#1DD81A]/60 text-[#1DD81A] px-4 rounded-md flex items-center gap-2">
+                        <div  className="p-2 bg-[#1DD81A]/60 text-[#1DD81A] px-4 rounded-md flex items-center gap-2 whitespace-nowrap">
                             <CiPlay1 />
                             <div>Watch Demo</div>
                         </div>
@@ -72,13 +73,13 @@ function Home({toggleMode,userPreference}){
                         {/* <button className="mt-5 text-xl bg-[#008FB5]/60 text-[#008FB5] px-4 p-2 rounded-md">Start</button> */}
                     </div>
                 </div>
-                <div className="w-1/2 flex justify-end m-10 mr-20">
+                <div className="w-1/2 flex justify-end m-10 mr-20 max-md:hidden">
                     <img src="/code.jpg" className="h-[80vh]"></img>
                 </div>
             </div>
         <div className="py-10 px-20 mt-10">
-            <div className="flex gap-4">
-            <div className="mb-5 flex-1 mt-20 flex gap-2 flex-col items-center bg-white/10 backdrop-blur-lg p-4 rounded-md h-70 w-75 justify-between">
+            <div className="flex gap-4 max-lg:flex-col justify-center items-center">
+            <div className="mb-5 flex-1 mt-20 flex gap-2 flex-col items-center bg-white/10 backdrop-blur-lg p-4 rounded-md h-70 w-75 max-lg:w-100 justify-between">
                 <div className="text-3xl font-bold text-orange-600"> Code With Others</div>
                 <div className="text-xl space-y-2 mt-4">
                     <p>This editor is persistent across all the users</p>
@@ -105,9 +106,10 @@ function Home({toggleMode,userPreference}){
             </div>
         </div>
 
-        <div className="mt-20 p-4">
+        {/* <div className="mt-20 p-4">
             <div className="flex items-center justify-center text-5xl font-bold">Features for<span className="ml-2 text-orange-600">Collabify</span></div>
-        </div>
+            <Feature/>
+        </div> */}
 
         <div>
             <Company toggleMode={toggleMode} userPreference={userPreference}/>

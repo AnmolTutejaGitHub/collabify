@@ -39,14 +39,14 @@ function Login({toggleMode,userPreference}) {
     }
     return (
       <div className="relative flex h-screen">
-        <div className="absolute top-0 left-0 w-1/2">
+        <div className="absolute top-0 left-0 w-1/2 max-lg:hidden">
             <NavBarSecondary toggleMode={toggleMode} userPreference={userPreference} />
         </div>
 
         <div
             className={`w-1/2 flex items-center justify-center bg-top ${
                 userPreference.lightmode ? "bg-white text-black" : "bg-black text-white"
-              }`}
+              } max-lg:hidden`}
             style={{ backgroundImage: "url('/circle.png')" }}
         >
         <img
@@ -55,7 +55,7 @@ function Login({toggleMode,userPreference}) {
         />
         </div>
   
-        <div className="w-1/2 flex items-center justify-center bg-[#F8F9FB]">
+        <div className="w-1/2 flex items-center justify-center bg-[#F8F9FB] max-lg:w-full">
           <fieldset className="rounded-xl w-[24rem] h-[30rem] p-8 shadow-xl bg-white border border-gray-200">
             <legend className="text-2xl font-bold text-[#F75904]/60 mb-6">Login</legend>
   
