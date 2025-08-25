@@ -51,8 +51,8 @@ function Home({toggleMode,userPreference}){
             <NavBar toggleMode={toggleMode}/>
 
             <div className="flex mt-10 w-full">
-                <div className="w-1/2 ml-20 sm:ml-2 max-lg:w-full">
-                    <div className="md:mt-50 flex gap-10 max-lg:gap-6">
+                <div className="w-1/2 md:ml-20 max-md:ml-4 max-lg:w-full">
+                    <div className="md:mt-50 flex gap-10 max-lg:gap-6 flex-wrap">
                         <div className="p-2 bg-[#F75904]/60 text-[#F75904] px-4 rounded-md whitespace-nowrap">Build With Js</div>
                         <div className="p-2 bg-[#238DFE]/60 text-[#238DFE] px-4 rounded-md flex items-center gap-2 whitespace-nowrap">
                             <FaGithub />
@@ -64,7 +64,7 @@ function Home({toggleMode,userPreference}){
                         </div>
                     </div>
                     <div className="mt-10">
-                        <div className="text-7xl font-bold">Code Collaboration Platform</div>
+                        <div className="text-7xl font-bold max-md:text-5xl">Code Collaboration Platform</div>
                         <div className="mt-5 text-xl">Collaborate with others and code together in real time.</div>
                         {/* <button className="mt-5 text-xl bg-[#008FB5]/60 text-[#008FB5] px-4 p-2 rounded-md">Start</button> */}
                     </div>
@@ -73,9 +73,9 @@ function Home({toggleMode,userPreference}){
                     <img src="/code.jpg" className="h-[80vh]"></img>
                 </div>
             </div>
-        <div className="py-10 px-20 mt-10">
+        <div className="py-10 md:px-20 max-md:px-4 mt-10">
             <div className="flex gap-4 max-lg:flex-col justify-center items-center">
-            <div className="mb-5 flex-1 mt-20 flex gap-2 flex-col items-center bg-white/10 backdrop-blur-lg p-4 rounded-md h-70 w-75 max-lg:w-100 justify-between">
+            <div className="mb-5 flex-1 mt-20 flex gap-2 flex-col items-center bg-white/10 backdrop-blur-lg p-4 rounded-md h-70 max-lg:w-100 justify-between">
                 <div className="text-3xl font-bold text-orange-600"> Code With Others</div>
                 <div className="text-xl space-y-2 mt-4">
                     <p>This editor is persistent across all the users</p>

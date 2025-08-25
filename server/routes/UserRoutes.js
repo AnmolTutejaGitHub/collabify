@@ -244,15 +244,17 @@ router.post('/verifytokenAndGetUserDetails', async (req, res) => {
     }
 })
 
-router.post("/updateUser/:id", Auth, async (req, res) => {
+router.post("/updateUser", Auth, async (req, res) => {
     try {
         const userId = req.userId;
-        const { id } = req.params;
-        if (id != userId) return res.status(400).send({ message: "Access Denied" });
-        const { name, email } = req.body;
-        const user = await User.findById(id);
+        const { name,email,phone,bio,gender,lastname } = req.body;
+        const user = await User.findById(userId);
         if (name) user.name = name;
         if (email) user.email = email;
+        user.bio = bio;
+        user.phone = phone;
+        user.gender = gender;
+        user.lastname = lastname;
         await user.save();
         res.status(200).send(user);
     } catch (err) {
@@ -264,23 +266,7 @@ router.get("/user-details",Auth,async(req,res)=>{
     try{
         const userId = req.userId;
         const user = await User.findById(userId);
-        res.status(200).send({name : user.name,email : user.email,userid : user._id});
-    }catch(err){
-        res.status(500).send(err);
-    }
-})
-
-router.post("/add-to-user-history",async(req,res)=>{
-    try{
-        const userId = req.userId;
-        const url = req.body;
-        const user = await User.findById(id);
-        user.history.push({
-            url : url,
-            timestamp : Date.now()
-        })
-        await user.save();
-        res.status(200).send({message : "success"});
+        res.status(200).send({name : user.name,email : user.email,userid : user._id, phone : user.phone, bio : user.bio ,gender : user.gender, lastname : user.lastname });
     }catch(err){
         res.status(500).send(err);
     }
@@ -291,7 +277,11 @@ router.post("/add-to-user-history",async(req,res)=>{
  */
 
 router.get("/recent-activity",Auth,async(req,res)=>{
-    const {page,pageSize} = req.query;
+    let {page,pageSize} = req.query;
+    const userId = req.userId;
+    console.log(userId);
+    const user = await User.findById(userId);
+    console.log(user);
     try{
         const DEFAULT_PAGE_NO = 1;
         const DEFAULT_PAGE_SIZE = 10;
@@ -299,13 +289,22 @@ router.get("/recent-activity",Auth,async(req,res)=>{
         page = parseInt(page,10) || DEFAULT_PAGE_NO;
         pageSize = parseInt(pageSize,10) || DEFAULT_PAGE_SIZE;
         const urls = await User.aggregate([
+            { $match: { _id: userId } },
+            { $unwind: "$history" },
+          
             {
               $facet: {
-                metadata: [{ $count: 'totalCount' }],
-                data: [{ $skip: (page - 1) * pageSize }, { $limit: pageSize }],
+                metadata: [{ $count: "totalCount" }],
+                data: [
+                  { $skip: (page - 1) * pageSize },
+                  { $limit: pageSize },
+                ],
               },
             },
           ]);
+
+        console.log("Aggregation result:",urls);
+
 
         res.status(200).send({
             history : urls,
@@ -316,7 +315,7 @@ router.get("/recent-activity",Auth,async(req,res)=>{
         })
 
     }catch(err){
-        res.status(400),send(err);
+        res.status(400).send(err);
     }
 })
 

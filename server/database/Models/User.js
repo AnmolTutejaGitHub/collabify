@@ -49,7 +49,28 @@ const UserSchema = new mongoose.Schema({
         default: false
     },
     history:{
-        type : [Object]
+        type : [String]
+    },
+    phone: {
+        type: Number,
+        validate: {
+          validator: function (v) {
+            return /^\d{10}$/.test(v.toString());
+          }
+        },
+        default : 111111111,
+    },
+    bio : {
+        type : String,
+        default : "N/A"
+    },
+    gender : {
+        type : String,
+        default : "N/A"
+    },
+    lastname : {
+        type : String,
+        default : "N/A"
     }
 })
 

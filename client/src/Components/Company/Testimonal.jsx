@@ -19,7 +19,7 @@ function Testimonial({rating,quote,image,name,role,userPreference}){
       )
     
     return (
-        <div className={`bg-white/10 backdrop-blur-lg p-6 shadow rounded-xl w-[400px] ${userPreference.lightmode ? 'text-black' : ''}`}>
+        <div className={`bg-white/10 backdrop-blur-lg p-6 shadow rounded-xl lg:w-[400px] ${userPreference.lightmode ? 'text-black' : ''}`}>
                 {/* <div className="flex items-center">
                   {Array.from({ length: rating }).map((_,i) => (
                     <Star key={i} />

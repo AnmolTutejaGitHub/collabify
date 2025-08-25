@@ -5,6 +5,7 @@ const Auth = require("../middleware/Auth");
 const { v4: uuidv4 } = require("uuid");
 const axios = require('axios');
 const {Judge0Limiter} = require("../middleware/RateLimiters");
+const User = require('../database/Models/User');
 
 const languageMap = {
     javascript: 63,
@@ -18,10 +19,15 @@ const languageMap = {
     php: 68,
 }
 
-router.get("/create",Auth,(req,res)=>{
+router.get("/create",Auth,async(req,res)=>{
     try{
         const uuid = uuidv4(); 
-        res.status(200).send(`${config.FRONTEND_URL}/collab/${uuid}`);
+        const URL = `${config.FRONTEND_URL}/collab/${uuid}`;
+        const userId = req.userId;
+        const user = await User.findById(userId);
+        user.history.push(URL);
+        await user.save();
+        res.status(200).send(URL);
     }catch(err){
         res.status(500).send({error : err});
     }
