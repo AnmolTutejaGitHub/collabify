@@ -11,6 +11,8 @@ import { useRef } from "react";
 import Company from "../Company/Company";
 import FrequentlyAsked from "../Home/FrequentlyAsked";
 import Feature from "./Feature";
+import { Suspense } from "react";
+import LazyImage from "./LazyImage";
 
 function Home({toggleMode,userPreference}){
     const {username,userid,isLoading,setUser,clearUser,fetchData } = useUserStore();
@@ -69,9 +71,12 @@ function Home({toggleMode,userPreference}){
                         {/* <button className="mt-5 text-xl bg-[#008FB5]/60 text-[#008FB5] px-4 p-2 rounded-md">Start</button> */}
                     </div>
                 </div>
-                <div className="w-1/2 flex justify-end m-10 mr-20 max-lg:hidden">
+                {/* <div className="w-1/2 flex justify-end m-10 mr-20 max-lg:hidden">
                     <img src="/code.jpg" className="h-[80vh]"></img>
-                </div>
+                </div> */}
+                 <Suspense fallback={<div>Loading image...</div>}>
+                    <LazyImage />
+                 </Suspense>
             </div>
         <div className="py-10 md:px-20 max-md:px-4 mt-10">
             <div className="flex gap-4 max-lg:flex-col justify-center items-center">

@@ -7,6 +7,7 @@ const nodemailer = require("nodemailer");
 const config = require("../config/config");
 const bcrypt = require("bcrypt");
 const {LoginLimiter,SignupLimiter} = require("../middleware/RateLimiters");
+const History = require('../database/Models/History');
 
 router.post('/login', LoginLimiter, async (req, res) => {
     const { email, password } = req.body;
@@ -316,6 +317,54 @@ router.get("/recent-activity",Auth,async(req,res)=>{
 
     }catch(err){
         res.status(400).send(err);
+    }
+})
+
+router.post("/add-collabId-to-history",Auth,async(req,res)=>{
+    try {
+        const {collab_id} = req.body;
+        const user_id = req.userId;
+        await History.findOneAndUpdate(
+            { collab_id,user_id },      
+            { AccessedAt: new Date() },
+            { upsert: true, new: true }
+        );
+        return res.status(200).send({ message : "success"});
+    }catch(err){
+        res.status(500).send(err);
+    }
+})
+
+router.post("/get-collab-history",Auth,async(req,res)=>{
+    try{
+        const {collab_id} = req.body;
+        const user_id = req.userId;
+        const exist = await History.findOne({collab_id : collab_id, user_id : user_id});
+        if(exist) return res.status(200).send(exist);
+        return res.status(404).send({message : "you have not accessed it earlier"});
+    }catch(err){
+        res.status(500).send(err);
+    }
+})
+
+router.post("/collab-filter",Auth,async(req,res)=>{
+    try{
+        const user_id = req.userId;
+        const {date} = req.body;
+         const start = new Date(date);
+        start.setHours(0,0,0,0);
+
+        const end = new Date(date);
+        end.setHours(23,59,59,999);
+
+        const history = await History.find({
+            user_id,
+            AccessedAt: { $gte: start,$lte: end }
+        })
+        if(history.length == 0) return res.status(404).send({message : "No data found"});
+        return res.status(200).send({ history });
+    }catch(err){
+        res.status(500).send(err);
     }
 })
 

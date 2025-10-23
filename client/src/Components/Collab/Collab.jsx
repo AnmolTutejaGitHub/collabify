@@ -4,7 +4,7 @@ import useUserStore from "../../store/userStore";
 import * as Y from "yjs"
 import { WebsocketProvider } from "y-websocket"
 import { MonacoBinding } from "y-monaco";
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import axios from "axios";
 import { FaPlay } from "react-icons/fa";
@@ -83,6 +83,21 @@ function Collab(){
         }
         
     }
+
+
+    async function addToUserHistory(){
+        try{
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/user/add-collabId-to-history`,{
+                collab_id : id,
+            },{headers: {Authorization: `Bearer ${token}`}});
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    useEffect(()=>{
+        addToUserHistory();
+    },[])
 
     return(
         <div className="h-screen w-full flex flex-col bg-black">

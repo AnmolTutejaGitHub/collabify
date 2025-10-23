@@ -4,6 +4,7 @@ import {useState,useEffect} from "react";
 import NavBar from "../NavBar/NavBar";
 import { AiFillEdit } from "react-icons/ai";
 import toast from 'react-hot-toast';
+import { Link } from "react-router";
 
 function Profile({toggleMode,userPreference }) { 
     const {username,userid,isLoading,setUser,clearUser,fetchData} = useUserStore();
@@ -65,8 +66,11 @@ function Profile({toggleMode,userPreference }) {
     style={{ backgroundImage: "url('circle.png')" }}>
         <NavBar toggleMode={toggleMode}/>
         <div className="px-4 md:px-8 lg:px-20">
-            <div className="py-8 text-center font-bold text-3xl md:text-4xl border-b border-gray-200">
-                Welcome, {userDetails?.name}
+            <div className="py-8  border-b border-gray-200 flex justify-between">
+                <div className="text-center font-bold text-3xl md:text-4xl">Welcome, {userDetails?.name}</div>
+                <div>
+                  <Link to="/history">History</Link>
+                </div>
             </div>
         <div className="relative bg-[#1F2937] mt-10 bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl flex flex-col gap-8 p-6 md:p-12">
             <button className="absolute top-4 right-4 flex items-center gap-1 text-white bg-[#111827] px-3 py-1 rounded-lg hover:bg-[#0f172a] transition"

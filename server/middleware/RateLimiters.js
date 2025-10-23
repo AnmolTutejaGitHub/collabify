@@ -16,7 +16,7 @@ const SignupLimiter = rateLimit({
 const Judge0Limiter = rateLimit({
     windowMs: 1 * 60 * 1000, 
     max: 1, 
-    message: "Too many Judge0 requests. Dwag I have bills to pay. Limit = 1 request per min per window per IP"
+    message: "Too many Judge0 requests.I have bills to pay. Limit = 1 request per min per window per IP"
 })
   
 

@@ -15,6 +15,7 @@ import Collab from "./Components/Collab/Collab";
 import Pricing from "./Components/Pricing/Pricing";
 import Profile from "./Components/Profile/Profile";
 import Company from "./Components/Company/Company";
+import History from './Components/History/History';
 
 function App() {
 
@@ -56,6 +57,12 @@ function App() {
         <Route path="/profile" element={
           <ProtectedRoute>
             <Profile toggleMode={toggleMode} userPreference={userPreference}/>
+          </ProtectedRoute>
+        }
+        />
+        <Route path="/history" element={
+          <ProtectedRoute>
+            <History toggleMode={toggleMode} userPreference={userPreference}/>
           </ProtectedRoute>
         }
         />
